@@ -6,14 +6,11 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/memepur"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/memepur"
         android:supportsRtl="true"
         android:theme="@style/Theme.MemePur">
-        <activity
-            android:name=".next_activity"
-            android:exported="true" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
