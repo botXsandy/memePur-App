@@ -3,13 +3,12 @@ package com.example.memepur;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
+
 import android.content.Intent;
-import android.graphics.Bitmap;
+
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.service.chooser.ChooserTarget;
-import android.util.LruCache;
+
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -17,13 +16,13 @@ import android.widget.Toast;
 
 
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
+
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageLoader;
+
 import com.android.volley.toolbox.JsonObjectRequest;
 
-import com.android.volley.toolbox.Volley;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
@@ -46,11 +45,9 @@ public class MainActivity extends AppCompatActivity {
         loadMeme();
     }
     private void loadMeme() {
-//        RequestQueue queue = MySingleton.getInstance(this.getApplicationContext()).
-//                getRequestQueue();
-//        ProgressBar pb = progressBar.findViewById(R.id.progressbar);
+
         progressBar.setVisibility(View.VISIBLE);
-        RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
+
         imageURL = "https://meme-api.herokuapp.com/gimme";
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
@@ -58,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onResponse(JSONObject response) {
-//                        textView.setText("Response: " + response.toString());
+
 
                         try {
                             imageURL = response.getString("url");
@@ -92,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
                 });
 
 // Access the RequestQueue through your singleton class.
-        queue.add(jsonObjectRequest);
+        MySingleton.getInstance(MainActivity.this).addToRequestQueue(jsonObjectRequest);
 
     }
 
@@ -111,55 +108,3 @@ public class MainActivity extends AppCompatActivity {
         loadMeme();
     }
 }
-//    public static class MySingleton {
-//            private static MySingleton instance;
-//            private RequestQueue requestQueue;
-//            private ImageLoader imageLoader;
-//            private static Context ctx;
-//
-//            private MySingleton(Context context) {
-//                ctx = context;
-//                requestQueue = getRequestQueue();
-//
-//                imageLoader = new ImageLoader(requestQueue,
-//                        new ImageLoader.ImageCache() {
-//                            private final LruCache<String, Bitmap>
-//                                    cache = new LruCache<String, Bitmap>(20);
-//
-//                            @Override
-//                            public Bitmap getBitmap(String url) {
-//                                return cache.get(url);
-//                            }
-//
-//                            @Override
-//                            public void putBitmap(String url, Bitmap bitmap) {
-//                                cache.put(url, bitmap);
-//                            }
-//                        });
-//            }
-//
-//            public static synchronized MySingleton getInstance(Context context) {
-//                if (instance == null) {
-//                    instance = new MySingleton(context);
-//                }
-//                return instance;
-//            }
-//
-//            public RequestQueue getRequestQueue() {
-//                if (requestQueue == null) {
-//                    // getApplicationContext() is key, it keeps you from leaking the
-//                    // Activity or BroadcastReceiver if someone passes one in.
-//                    requestQueue = Volley.newRequestQueue(ctx.getApplicationContext());
-//                }
-//                return requestQueue;
-//            }
-//
-//            public <T> void addToRequestQueue(Request<T> req) {
-//                getRequestQueue().add(req);
-//            }
-//
-//            public ImageLoader getImageLoader() {
-//                return imageLoader;
-//            }
-//        }
-//    }
