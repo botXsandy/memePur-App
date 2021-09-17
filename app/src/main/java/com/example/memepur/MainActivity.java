@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
 
         intent.putExtra(Intent.EXTRA_TEXT,"Hey Check this out!! : "+imageURL);
         //chooser menu
-        Intent chooser = Intent.createChooser(intent,"Share this meme using....");
+        Intent chooser = Intent.createChooser(intent,"Share this meme using...");
         startActivity(chooser);
     }
 
